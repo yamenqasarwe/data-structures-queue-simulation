@@ -24,7 +24,7 @@ public:
 
     void push(T item)
     {
-        if(!empty())
+        if(count == MAXSIZE)
             return;
 
         Rear = (Rear + 1) % MAXSIZE;
@@ -172,14 +172,12 @@ int main()
     int minutesNeeded = N;
     while(!allItemsFinished(items))
     {
-        addCustomers( q, minutesNeeded, nextID);
+        addCustomers(q, minutesNeeded, nextID);
 
-        if(!q.empty())
-        {
-            customersToEmptyStore++;
-        }
-
+        int beforeServe = servedCustomers;
         serveCustomer(q,items,minutesNeeded,servedCustomers,totalWaitingTime,longestWait,longestWaitCustomer,totalIncome, outOfStockCustomers);
+        if(servedCustomers > beforeServe)
+            customersToEmptyStore++;
 
         minutesNeeded++;
     }
